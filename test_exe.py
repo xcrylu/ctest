@@ -53,21 +53,21 @@ def read_testcases(json_file):
                 }
             }
         }
-    返回结果：
-    {
-        "count": count,
-        "description": "two intergel add",       
-        "input": [
-            "5 10",
-            "20 30",
-            "100 200"
-        ],
-        "expectedResult": [
-            "15",
-            "50",
-            "300"
-        ]    
-    }
+        返回结果：
+        {
+            "count": count,
+            "description": "two intergel add",       
+            "input": [
+                "5 10",
+                "20 30",
+                "100 200"
+            ],
+            "expectedResult": [
+                "15",
+                "50",
+                "300"
+            ]    
+        }
 
     '''
     # 获取文件名（不含路径）
@@ -146,11 +146,7 @@ def test(test_prog,testcase_file):
         else:
             failure = failure + 1
             testres.append(False)
-    ok = True if( failure == 0 ) else False
-            
-
-       
-       
+    ok = True if( failure == 0 ) else False        
     
 
     # 设置测试结果
@@ -210,10 +206,10 @@ def printTestResult(test_result):
 
 
 def main():
-
-    test_prog = "/home/xcr/test/ctest/bin/1"
-    testcase_file = "/home/xcr/test/ctest/testcase/1.json"
-    res = test(test_prog,testcase_file)
+    for i in range(10):
+        test_prog = f"/home/xcr/test/ctest/bin/{i+1}"
+        testcase_file = f"/home/xcr/test/ctest/testcase/{i+1}.json"
+        res = test(test_prog,testcase_file)
     # test_run_exe()
     # test_generate_random_data()
     # test_zip_folder()

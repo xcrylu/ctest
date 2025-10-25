@@ -1,3 +1,4 @@
+from genericpath import isfile
 import json
 import os
 import sys
@@ -8,9 +9,9 @@ import subprocess
 import json
 
 class Test:
-    # 类的属性（数据）和方法（函数）
-    def __init__(self, prog, testcase):  # 初始化方法（构造函数）
-        self.prog = prog  # 绑定实例属性
+  
+    def __init__(self, prog:str, testcase:str): 
+        self.prog = prog  
         self.input = []
         self.expectOutput=[]
         self.output=[]
@@ -22,8 +23,6 @@ class Test:
         
 
         for key,value in self.testcase['testCases'] ['data'].items():
-            # print(key)
-            # print(value)
             self.input.append(value['input'])
             self.expectOutput.append(value['expectedResult'])
 
@@ -35,10 +34,8 @@ class Test:
                      "expectOutput":self.expectOutput                    
                      }
 
-    def test(self):  # 类的方法（第一个参数必须是self）
-        # 方法体（可访问self.属性）
-        for ipt,opt in zip(self.input,self.expectOutput):
-            # print(ipt+'-->'+opt,end='')
+    def test(self):         
+        for ipt,opt in zip(self.input,self.expectOutput):         
             res = subprocess.run(
                 [self.prog] ,
                 input=ipt,
@@ -46,22 +43,46 @@ class Test:
                 text=True
             )
             self.output.append(res.stdout.strip())
-            # print('==>'+ res.stdout )
+       
         
         self.result['output'] = self.output
-        if self.output==self.expectOutput:
-            self.result['successed'] = True
-        
-        self.printResult()
+        suc = True
+        for opt,exp in zip( self.output,self.expectOutput):
+            if opt.strip() != exp.strip():
+                suc = False
+                break       
+        self.result['successed'] = suc
+      
         return self.result
-        # print(self.output)  
+       
 
+    def reportTestResult(self,filename):
+        with open(filename,"a",encoding='utf-8') as f:
+
+            f.write(f"\n被测程序 ：{os.path.basename(self.prog)} \n程序功能：{self.result['description']}\n")
+            f.writelines('\n')
+
+            f.write( "\t最终测试结果： " + '通过 ✅ \n'  if self.result['successed'] else ' 失败❌\n')           
+            f.write('\n')
+
+            f.write("测试详情：\n===============================================\n")
+            i = 1
+            for ipt ,opt ,should in zip(self.input,self.output,self.expectOutput):                
+                f.write(f'第{i}组数据：')                
+               
+                f.write( '通过 ✅\n' if opt.strip() == should.strip() else '\t失败❌\n')
+                f.write("---------------------------\n")   
+                f.write(f"输入:{ipt}\n")
+                f.write(f"输出:\n{opt}\n")
+                f.write(f"正确输出:\n{should}\n\n")                           
+                
+                i = i+1   
 
     def printResult(self):
-        print(f"被测程序：{self.result['progameName']}\n")
-        print(f"程序说明：{self.result['description']} \n")
+        print(f"\n被测程序：{self.result['progameName']}")
+        print(f"程序说明：{self.result['description']}")
 
-        print( "      测试结果：✅ 通过\n" if self.result['successed']  else "测试结果：  ❌ 失败\n") 
+        print( "      测试结果：✅ 通过\n" if self.result['successed']  else "测试结果：  ❌ 失败") 
 
         print("测试用例              输入数据   预期输出   实际输出    结果")
         print("---------------------------------------------------------------")
@@ -69,7 +90,7 @@ class Test:
         total = len(self.result['expectOutput'])
         passed = 0
         for i in range(total):
-            print(f" {i+1:>6}: {self.input[i].strip() if self.input[i].strip()=='' else '无输入':>20}  {self.expectOutput[i].strip():>10}  {self.output[i].strip().strip():>10} ", end='')
+            print(f" {i+1:>6}: {self.input[i].strip() if self.input[i].strip()=='' else '无':>20}  {self.expectOutput[i].strip():>10}  {self.output[i].strip().strip():>10} ", end='')
             if self.output[i].strip() == self.expectOutput[i].strip():
                 print(" ✅ 通过")
                 passed += 1
@@ -80,11 +101,17 @@ class Test:
     
 
 def main():
+    reportfile = "report.txt"
+    if os.path.isfile(reportfile):
+        os.remove(reportfile)
+
     for i in range(10):
         testprog = f'/home/xcr/test/ctest/bin/{i+1}'
         testcase = f'/home/xcr/test/ctest/testcase/{i+1}.json'
         test = Test(testprog,testcase)
         test.test()
+        test.reportTestResult(reportfile)
+        
  
 
 if __name__ == "__main__":   

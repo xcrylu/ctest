@@ -75,8 +75,9 @@ def set_testcase_input_data(jsonFilename,inputData=[]):
 def get_testcase_expected_result(prog,jsonfilename):
     test_data = test.read_testcases(jsonfilename)
     retdata = []
-    for i in range(test_data["testCases"]["count"]):
-        ret = test.run_exe(prog,input=test_data["testCases"][str(i+1)]["input"])
+    for i in range(test_data['count']):
+        
+        ret = test.run_exe(prog,input=test_data['input'][i])
         retdata.append(ret.stdout)
     
     return retdata
@@ -426,8 +427,11 @@ def main():
     # generate_testcase_9()
     # jsonfile  = './testcase/9.json'
     # create_zipfile_type_testcase(jsonfile)
-    create_all_zip_testcase()
-    # indata = ['1','2','3','4']
+    # create_all_zip_testcase()
+    prog = '/home/xcr/test/ctest/bin/3'
+    jsonfilename = '/home/xcr/test/ctest/testcase/3.json'
+    outdata = get_testcase_expected_result(prog,jsonfilename)
+    set_testcase_expected_reuslt(jsonfilename,outdata)
     # expdata= ['11','12','13','14']
     # create_json_test_case("/home/xcr/test/ctest/testcase/test.json","test description",4,indata,expdata)
     # create_oj_zipfile_type_testcase("/home/xcr/test/ctest/testcase/1.json")

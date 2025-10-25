@@ -1,47 +1,47 @@
 {
     "testCases": {
         "count": 10,
-        "description": "计算两个正整数的最大公约数",
+        "description": "反转一个整数",
         "data": {
             "1": {
                 "input": "7980",
-                "expectedResult": "20"
+                "expectedResult": "897\n"
             },
             "2": {
                 "input": "-3948",
-                "expectedResult": "1"
+                "expectedResult": "-8493\n"
             },
             "3": {
                 "input": "7500",
-                "expectedResult": "6"
+                "expectedResult": "57\n"
             },
             "4": {
                 "input": "8346",
-                "expectedResult": "6"
+                "expectedResult": "6438\n"
             },
             "5": {
                 "input": "6416",
-                "expectedResult": "30"
+                "expectedResult": "6146\n"
             },
             "6": {
                 "input": "-6155",
-                "expectedResult": "100"
+                "expectedResult": "-5516\n"
             },
             "7": {
                 "input": "-6935",
-                "expectedResult": "9"
+                "expectedResult": "-5396\n"
             },
             "8": {
                 "input": "-520",
-                "expectedResult": "2"
+                "expectedResult": "-25\n"
             },
             "9": {
                 "input": "-2696",
-                "expectedResult": "17"
+                "expectedResult": "-6962\n"
             },
             "10": {
                 "input": "9088",
-                "expectedResult": "11"
+                "expectedResult": "8809\n"
             }
         }
     }
