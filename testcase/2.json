@@ -1,0 +1,48 @@
+{
+    "testCases":{
+        "count": 10,
+        "description": "判断一个数是否素数",
+        "data": {
+            "1": {
+                "input": "141",
+                "expectedResult": "Not prime"
+            },
+            "2": {
+                "input": "0",
+                "expectedResult": "Not prime"
+            }, 
+            "3": {
+                "input": "53",
+                "expectedResult": "Prime"
+            },
+            "4": {
+                "input": "-71",
+                "expectedResult": "Not prime"
+            },
+            "5": {
+                "input": "173",
+                "expectedResult": "Prime"
+            }, 
+            "6": {
+                "input": "71",
+                "expectedResult": "Prime"
+            },
+            "7": {
+                "input": "201",
+                "expectedResult": "Not prime"
+            },
+            "8": {
+                "input": "47",
+                "expectedResult": "Prime"
+            },
+            "9": {
+                "input": "39",
+                "expectedResult": "Not prime"
+            },
+            "10": {
+                "input": "163",
+                "expectedResult": "Prime"
+            }
+        }
+    }
+}

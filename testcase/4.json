@@ -1,0 +1,48 @@
+{
+    "testCases": {
+        "count": 10,
+        "description": "计算1到n之间所有3或5的倍数之和",
+        "data": {
+            "1": {
+                "input": "7980",
+                "expectedResult": "14862750\n"
+            },
+            "2": {
+                "input": "948",
+                "expectedResult": "209793\n"
+            },
+            "3": {
+                "input": "75",
+                "expectedResult": "1350\n"
+            },
+            "4": {
+                "input": "346",
+                "expectedResult": "27945\n"
+            },
+            "5": {
+                "input": "6416",
+                "expectedResult": "9607533\n"
+            },
+            "6": {
+                "input": "-155",
+                "expectedResult": "0\n"
+            },
+            "7": {
+                "input": "35",
+                "expectedResult": "293\n"
+            },
+            "8": {
+                "input": "520",
+                "expectedResult": "63528\n"
+            },
+            "9": {
+                "input": "3",
+                "expectedResult": "3\n"
+            },
+            "10": {
+                "input": "88",
+                "expectedResult": "1845\n"
+            }
+        }
+    }
+}
