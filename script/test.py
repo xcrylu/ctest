@@ -15,17 +15,16 @@ class Test:
         self.input = []
         self.expectOutput=[]
         self.output=[]
-
+        # 获取测试数据
         with open(testcase,'r',encoding='utf-8') as f:
             _testcase = json.load(f)
 
-        self.testcase = _testcase    
-        
-
+        self.testcase = _testcase            
+        #整理json数据改成列表
         for key,value in self.testcase['testCases'] ['data'].items():
             self.input.append(value['input'])
             self.expectOutput.append(value['expectedResult'])
-
+        # 准备测试结果
         self.result={"progameName": os.path.basename(prog),
                      "description":_testcase['testCases']['description'],
                      "successed": False,
@@ -34,7 +33,8 @@ class Test:
                      "expectOutput":self.expectOutput                    
                      }
 
-    def test(self):         
+    def test(self):  
+        # 测试每个测试用例       
         for ipt,opt in zip(self.input,self.expectOutput):         
             res = subprocess.run(
                 [self.prog] ,
@@ -44,7 +44,7 @@ class Test:
             )
             self.output.append(res.stdout.strip())
        
-        
+        # 保存测试结果
         self.result['output'] = self.output
         suc = True
         for opt,exp in zip( self.output,self.expectOutput):
@@ -57,6 +57,7 @@ class Test:
        
 
     def reportTestResult(self,filename):
+        # 生成测试报告文件
         with open(filename,"a",encoding='utf-8') as f:
 
             f.write(f"\n被测程序 ：{os.path.basename(self.prog)} \n程序功能：{self.result['description']}\n")
@@ -79,6 +80,7 @@ class Test:
                 i = i+1   
 
     def printResult(self):
+        # 打印测试结果
         print(f"\n被测程序：{self.result['progameName']}")
         print(f"程序说明：{self.result['description']}")
 

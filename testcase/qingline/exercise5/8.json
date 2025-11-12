@@ -1,6 +1,6 @@
 {
     "testCases": {
-        "count": 10,
+        "count": 1,
         "description": "输出100到200之间的素数，每行输出5个",
         "data": {
             "1": {
